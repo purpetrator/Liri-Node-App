@@ -1,15 +1,12 @@
-//Add code to read and set any environment variables with the dotenv package
 require("dotenv").config();
+var keys = require("./keys.js");
+var Spotify = require("node-spotify-api");
+var spotify = new Spotify(keys.spotify);
 
-// var keys = require("./keys.js");
-
-//You should then be able to access your keys information like so:
-// var spotify = new Spotify(keys.spotify);
-
-var action = process.argv[2];
+var userCommand = process.argv[2];
 
 // Here i'm writing a switch statement that will call certain functions
-switch (action) {
+switch (userCommand) {
   case "concert-this":
     concertThis();
     break;
@@ -32,13 +29,23 @@ switch (action) {
 
 function concertThis() {}
 
-function spotifyThis() {}
+function spotifyThis() {
+  spotify.search({ type: "track", query: "All the Small Things" }, function(
+    err,
+    data
+  ) {
+    if (err) {
+      return console.log("Error occurred: " + err);
+    }
+
+    console.log(data);
+  });
+}
 
 function movieThis() {
   var axios = require("axios");
   var nodeArgs = process.argv;
   var movieName = "";
-  //   var movieName = process.argv[3];
 
   // Loop through all the words in the node argument
   // And do a little for-loop magic to handle the inclusion of "+"s
