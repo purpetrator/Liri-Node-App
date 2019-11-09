@@ -1,11 +1,8 @@
 require("dotenv").config();
-var keys = require("./keys.js");
-var Spotify = require("node-spotify-api");
-var spotify = new Spotify(keys.spotify);
 
 var userCommand = process.argv[2];
 
-// Here i'm writing a switch statement that will call certain functions
+// Here i'm writing a switch statement that will call certain functions based on userCommand
 switch (userCommand) {
   case "concert-this":
     concertThis();
@@ -27,9 +24,70 @@ switch (userCommand) {
     return;
 }
 
-function concertThis() {}
+function concertThis() {
+  var axios = require("axios");
+  var moment = require("moment");
+  var nodeArgs1 = process.argv;
+  var bandName = "";
+
+  // Loop through all the words in the node argument
+  // And do a little for-loop magic to handle the inclusion of "+"s
+  for (var i = 3; i < nodeArgs1.length; i++) {
+    if (i > 3 && i < nodeArgs1.length) {
+      bandName = bandName + "+" + nodeArgs1[i];
+    } else {
+      bandName += nodeArgs1[i];
+    }
+    var queryUrl =
+      "https://rest.bandsintown.com/artists/" +
+      bandName +
+      "/events?app_id=codingbootcamp";
+
+    axios
+      .get(queryUrl)
+      .then(function(response) {
+        // Display name of venue, venue location, and the date of the event
+        // Format the date of the event to be MM/DD/YYYY (look at the moment node package documentation!)
+        console.log("Venue: " + response.data[0].venue.name);
+
+        console.log(
+          "Location: " +
+            response.data[0].venue.city +
+            ", " +
+            response.data[0].venue.country
+        );
+
+        var eventDate = response.data[0].datetime;
+        var formattedDate = moment(eventDate).format("MM/DD/YYYY");
+        console.log("Date: " + formattedDate);
+      })
+      .catch(function(error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log("---------------Data---------------");
+          console.log(error.response.data);
+          console.log("---------------Status---------------");
+          console.log(error.response.status);
+          console.log("---------------Status---------------");
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+  }
+}
 
 function spotifyThis() {
+  var keys = require("./keys.js");
+  var Spotify = require("node-spotify-api");
+  var spotify = new Spotify(keys.spotify);
+
   var nodeArgs1 = process.argv;
   var userQuery = "";
 
@@ -121,3 +179,7 @@ function movieThis() {
 }
 
 function doWhat() {}
+
+// Questions:
+// * Does concert-this show all events or just next one?
+// * need to do do-what
