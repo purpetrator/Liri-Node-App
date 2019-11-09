@@ -48,18 +48,22 @@ function concertThis() {
       .then(function(response) {
         // Display name of venue, venue location, and the date of the event
         // Format the date of the event to be MM/DD/YYYY (look at the moment node package documentation!)
-        console.log("Venue: " + response.data[0].venue.name);
+        for (var i = 0; i < response.data.length; i++) {
+          var eventDate = response.data[i].datetime;
+          var formattedDate = moment(eventDate).format("MM/DD/YYYY");
+          console.log("Date: " + formattedDate);
 
-        console.log(
-          "Location: " +
-            response.data[0].venue.city +
-            ", " +
-            response.data[0].venue.country
-        );
+          console.log("Venue: " + response.data[i].venue.name);
 
-        var eventDate = response.data[0].datetime;
-        var formattedDate = moment(eventDate).format("MM/DD/YYYY");
-        console.log("Date: " + formattedDate);
+          console.log(
+            "Location: " +
+              response.data[i].venue.city +
+              ", " +
+              response.data[i].venue.country
+          );
+
+          console.log("\n ----- \n");
+        }
       })
       .catch(function(error) {
         if (error.response) {
@@ -106,7 +110,7 @@ function spotifyThis() {
       return console.log("Error occurred: " + err);
     }
 
-    // console.log(data.tracks);
+    // console.log(data.tracks.items[0]);
 
     // Artist(s)
     console.log(
@@ -123,7 +127,7 @@ function spotifyThis() {
     );
 
     // A preview link of the song from Spotify
-    console.log("Link: " + data.tracks.href);
+    console.log("Link: " + JSON.stringify(data.tracks.items[0].preview_url));
   });
 }
 
@@ -199,11 +203,17 @@ function doWhat() {
 
     // The command will be whatever is before the comma. The search term will be whatever is after the comma.
     // Make the corresponding API call depending on what the command is.
+    if (dataArr[0] === "spotify-this-song") {
+      console.log("match");
+      spotifyThis(); // I'm going to need to call the spotifyThis function and pass the value of dataArr[1] as an argument, but I don't know how
+      // Is this the best way to write this?
+    }
   });
 }
 
 // To do:
 // * Does concert-this show all events or just next one?
+// * Spotify this: If no song is provided then your program will default to "The Sign" by Ace of Base.
 // * finish do-what-it-says
 // input validation/user handling:
 // If the user doesn't provide 1 of the 4 recognizable commands, display message to the user to try again
