@@ -30,15 +30,42 @@ switch (userCommand) {
 function concertThis() {}
 
 function spotifyThis() {
-  spotify.search({ type: "track", query: "All the Small Things" }, function(
-    err,
-    data
-  ) {
+  var nodeArgs1 = process.argv;
+  var userQuery = "";
+
+  // Loop through all the words in the node argument
+  // And do a little for-loop magic to handle the inclusion of "+"s
+  for (var i = 3; i < nodeArgs1.length; i++) {
+    if (i > 3 && i < nodeArgs1.length) {
+      userQuery = userQuery + "+" + nodeArgs1[i];
+    } else {
+      userQuery += nodeArgs1[i];
+    }
+  }
+
+  spotify.search({ type: "track", query: userQuery }, function(err, data) {
     if (err) {
       return console.log("Error occurred: " + err);
     }
 
-    console.log(data);
+    // console.log(data.tracks);
+
+    // Artist(s)
+    console.log(
+      "Artists: " +
+        JSON.stringify(data.tracks.items[0].album.artists[0].name, null, 2)
+    );
+
+    // The song's name
+    console.log("Track Name: " + JSON.stringify(data.tracks.items[0].name));
+
+    // The album that the song is from
+    console.log(
+      "Album: " + JSON.stringify(data.tracks.items[0].album.name, null, 2)
+    );
+
+    // A preview link of the song from Spotify
+    console.log("Link: " + data.tracks.href);
   });
 }
 
