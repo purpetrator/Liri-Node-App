@@ -178,8 +178,32 @@ function movieThis() {
     });
 }
 
-function doWhat() {}
+function doWhat() {
+  var fs = require("fs");
 
-// Questions:
+  // The code will store the contents of the reading inside the variable "data"
+  fs.readFile("random.txt", "utf8", function(error, data) {
+    // If the code experiences any errors it will log the error to the console.
+    if (error) {
+      return console.log(error);
+    }
+
+    // We will then print the contents of data
+    console.log(data);
+
+    // Then split it by commas (to make it more readable)
+    var dataArr = data.split(",");
+
+    // We will then re-display the content as an array for later use.
+    console.log(dataArr);
+
+    // The command will be whatever is before the comma. The search term will be whatever is after the comma.
+    // Make the corresponding API call depending on what the command is.
+  });
+}
+
+// To do:
 // * Does concert-this show all events or just next one?
-// * need to do do-what
+// * finish do-what-it-says
+// input validation/user handling:
+// If the user doesn't provide 1 of the 4 recognizable commands, display message to the user to try again
