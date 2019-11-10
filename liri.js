@@ -21,7 +21,7 @@ switch (userCommand) {
     break;
 
   default:
-    console.log("Try again, dummy");
+    console.log("\n Try again, dummy \n");
     return;
 }
 
@@ -45,8 +45,6 @@ function concertThis(userConcert) {
         "https://rest.bandsintown.com/artists/" +
         bandName +
         "/events?app_id=codingbootcamp";
-
-      console.log(queryUrl);
 
       axios
         .get(queryUrl)
@@ -106,8 +104,6 @@ function concertThis(userConcert) {
         "https://rest.bandsintown.com/artists/" +
         bandName +
         "/events?app_id=codingbootcamp";
-
-      console.log(queryUrl);
 
       axios
         .get(queryUrl)
@@ -365,7 +361,3 @@ function doWhat() {
     }
   });
 }
-
-// input validation/user handling:
-// * Spotify this: If no song is provided then your program will default to "The Sign" by Ace of Base.
-// If the user doesn't provide 1 of the 4 recognizable commands, display message to the user to try again
