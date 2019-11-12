@@ -21,7 +21,7 @@ switch (userCommand) {
     break;
 
   default:
-    console.log("\n Try again, dummy \n");
+    console.log("\n Try again, please\n");
     return;
 }
 
@@ -161,7 +161,7 @@ function spotifyThis(songName) {
 
     if (nodeArgs1.length < 4) {
       userQuery = "the+sign";
-      console.log("less than 4");
+      console.log("\nYou didn't enter a song! Let me pick one for you...\n");
     } else {
       // Loop through all the words in the node argument
       // And do a little for-loop magic to handle the inclusion of "+"s
@@ -249,7 +249,7 @@ function movieThis(userMovie) {
     axios
       .get(queryUrl)
       .then(function(response) {
-        console.log("Title: " + response.data.Title);
+        console.log("\nTitle: " + response.data.Title);
         console.log("Release Year: " + response.data.Year);
         console.log("IMDB Rating: " + response.data.Ratings[0].Value);
         console.log(
@@ -257,8 +257,8 @@ function movieThis(userMovie) {
         );
         console.log("Produced In: " + response.data.Country);
         console.log("Language: " + response.data.Language);
-        console.log("Plot: " + response.data.Plot);
         console.log("Actors: " + response.data.Actors);
+        console.log("Plot: " + response.data.Plot);
       })
       .catch(function(error) {
         if (error.response) {
@@ -332,14 +332,10 @@ function doWhat() {
     }
 
     // We will then print the contents of data
-    console.log(data);
+    console.log(data + "\n");
 
     // Then split it by commas (to make it more readable)
     var dataArr = data.split(",");
-
-    // We will then re-display the content as an array for later use.
-    console.log(dataArr);
-    console.log("0: " + dataArr[0]);
 
     // The command will be whatever is before the comma. The search term will be whatever is after the comma.
     // Make the corresponding API call depending on what the command is.
