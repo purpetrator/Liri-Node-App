@@ -38,11 +38,15 @@ $ concert-this <band name>
 
 This returns the data from the API and displays a response with all upcoming events for the entered band name.
 
+![](https://i.imgur.com/sM2xhfS.png)
+
 ```sh
 $ spotify-this-song <song title>
 ```
 
 This returns the data from the API and displays a response with album/artist info and a preview link for the entered song title.
+
+![](https://i.imgur.com/BQLq0ij.png)
 
 ```sh
 $ movie-this <movie name>
@@ -50,11 +54,15 @@ $ movie-this <movie name>
 
 This returns the data from the API and displays a response with movie production details and a plot for the entered movie name.
 
+![](https://i.imgur.com/Kohdga3.png)
+
 ```sh
 $ do-what-it-says
 ```
 
 This accesses the random.txt file and runs a random command with a random title and displays the result.
+
+![](https://i.imgur.com/DuB5dRc.png)
 
 ### Technologies Used
 
@@ -76,4 +84,4 @@ This accesses the random.txt file and runs a random command with a random title 
 
 ### Author:
 
-Ana Chernov - full-stack web developer - https://github.com/purpetrator
+Ana Chernov - Full Stack Web Developer - https://github.com/purpetrator
